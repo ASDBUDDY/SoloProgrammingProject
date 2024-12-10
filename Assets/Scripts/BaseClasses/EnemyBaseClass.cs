@@ -271,9 +271,9 @@ namespace BaseClasses
         public void TakeDamage(float damage)
         {
             enemyHealthComponent.DamageHealth(damage);
-            if(hitCoroutine != null)
+            /*if(hitCoroutine != null)
                 StopCoroutine(hitCoroutine);
-            hitCoroutine = StartCoroutine(HitVisual());
+            hitCoroutine = StartCoroutine(HitVisual());*/
         }
 
         /// <summary>
@@ -293,8 +293,8 @@ namespace BaseClasses
         /// Resets Enemy after death animation death
         /// </summary>
         public void ResetSelf() {
-            StopCoroutine(HitVisual());
-            HitIndicationStop();
+            /*StopCoroutine(HitVisual());
+            HitIndicationStop();*/
             LifetimeSM.SetState(LifetimeStates.Inactive);
             LifetimeSM.gameObject.transform.localScale = EnemyScale;
             enemyHealthComponent = new HealthComponent(EnemyStats.maxHealth);

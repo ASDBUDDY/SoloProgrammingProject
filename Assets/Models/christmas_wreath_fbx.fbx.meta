@@ -3,7 +3,22 @@ guid: 19f4e980e37eea2448e1661d2f16f705
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bells
+    second: {fileID: 2100000, guid: ce9e6f954ac9059419d477daf9953f64, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lights
+    second: {fileID: 2100000, guid: b818fced9f98c494c8fc40e8a15281aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wreaths
+    second: {fileID: 2100000, guid: d4a674885260ba24daa3f6653a94af0d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
