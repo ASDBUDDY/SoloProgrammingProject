@@ -10,7 +10,7 @@ public class HitDetectionClass : MonoBehaviour
       public void SetupDamage(float _damage) => damageStat = _damage;
 
       private void OnTriggerEnter(Collider other){
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(GameConstantsClass.PLAYER_TAG))
         {
             Debug.Log($"I hit player! {damageStat}");
             //playerDamageEvent.RaiseEvent(damageStat);

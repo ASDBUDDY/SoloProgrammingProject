@@ -27,10 +27,25 @@ MonoBehaviour:
       SpawnTimer: 2
       EnemyCount: 0
       CurrentSpawnTimer: 0
+    - enemyTypes: 1
+      SpawnQuantity: 5
+      SpawnTimer: 2
+      EnemyCount: 0
+      CurrentSpawnTimer: 0
   - WaveID: 2
     EnemyWaveList:
     - enemyTypes: 0
-      SpawnQuantity: 100
+      SpawnQuantity: 50
+      SpawnTimer: 2
+      EnemyCount: 0
+      CurrentSpawnTimer: 0
+    - enemyTypes: 2
+      SpawnQuantity: 20
+      SpawnTimer: 2
+      EnemyCount: 0
+      CurrentSpawnTimer: 0
+    - enemyTypes: 1
+      SpawnQuantity: 10
       SpawnTimer: 2
       EnemyCount: 0
       CurrentSpawnTimer: 0

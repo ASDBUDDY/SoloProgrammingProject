@@ -46,19 +46,19 @@ public class ProjectileBaseClass : MonoBehaviour
     public void SetupDamage(float _damage) => damageStat = _damage;
   private void OnTriggerEnter(Collider other)
     {
-        /*if (other.gameObject.layer == GameConstantsClass.PLAYER_LAYER || other.gameObject.layer == GameConstantsClass.LEVEL_LAYER)
+        if (other.gameObject.layer == GameConstantsClass.PLAYER_LAYER )
         {
             if (other.gameObject.CompareTag(GameConstantsClass.PLAYER_TAG))
             {
-                //Debug.Log($"I hit player! {damageStat}");
-                playerDamageEvent.RaiseEvent(damageStat);
+                Debug.Log($"I hit player! {damageStat}");
+                //playerDamageEvent.RaiseEvent(damageStat);
                 CallDestroy();
             }
             else
             {
                 CallDestroy();
             }
-        }*/
+        }
     }
 
     public void CallDestroy()

@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 4603407543514660187}
   - component: {fileID: 3387133055518848708}
   m_Layer: 7
-  m_Name: PumpkinBase
+  m_Name: PumpkinBase 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5696452226991581682}
-  m_Mesh: {fileID: 6396926956492916267, guid: cb48af8bcbcc40046b5eef654bc2c396, type: 3}
+  m_Mesh: {fileID: 8830948036656200602, guid: 7fe7148a753dd2c44bb87875e0bc6f63, type: 3}
 --- !u!23 &7881507347481905766
 MeshRenderer:
   m_ObjectHideFlags: 0

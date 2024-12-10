@@ -347,6 +347,7 @@ namespace BaseClasses
         {
             Melee,
             Ranged,
+            MeleeSlow
         }
 
         

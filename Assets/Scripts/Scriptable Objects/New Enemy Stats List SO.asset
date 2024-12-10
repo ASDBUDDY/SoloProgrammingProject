@@ -15,9 +15,25 @@ MonoBehaviour:
   DataList:
   - enemyName: Pumpkin
     enemyType: 0
-    enemySpeed: 5
+    enemySpeed: 10
     maxHealth: 5
     enemyAttackPower: 2
+    enemyAttackRate: 2
+    minAttackRange: 0
+    maxAttackRange: 3
+  - enemyName: PumpkinCute
+    enemyType: 2
+    enemySpeed: 5
+    maxHealth: 10
+    enemyAttackPower: 5
     enemyAttackRate: 5
     minAttackRange: 0
-    maxAttackRange: 5
+    maxAttackRange: 3
+  - enemyName: PumpkinWitch
+    enemyType: 1
+    enemySpeed: 8
+    maxHealth: 5
+    enemyAttackPower: 6
+    enemyAttackRate: 5
+    minAttackRange: 0
+    maxAttackRange: 20
