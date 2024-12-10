@@ -8,6 +8,9 @@ public class PlayerControllerScript : MonoBehaviour
     PlayerActions playerInput;
     public PlayerAnimHandler playerAnimHandler;
     public CharacterController characterController;
+    public GameObject CaneCollider;
+    public HealthComponent healthComponent;
+    public float MeleeDamage = 5f;
 
     Vector2 currentMovementInput;
     Vector3 currentMovement;
@@ -27,7 +30,7 @@ public class PlayerControllerScript : MonoBehaviour
         playerInput = new PlayerActions();
         playerAnimHandler= GetComponent<PlayerAnimHandler>();
         characterController = this.transform.parent.GetComponent<CharacterController>();
-
+        healthComponent = new HealthComponent(100f);
         playerInput.CharacterControls.Move.started += OnMovementInput;
         playerInput.CharacterControls.Move.performed += OnMovementInput;
         playerInput.CharacterControls.Move.canceled += OnMovementInput;
@@ -84,6 +87,7 @@ public class PlayerControllerScript : MonoBehaviour
         if (!isAttacking)
         {
             isAttacking = context.ReadValueAsButton();
+            CaneCollider.SetActive(true);
             playerAnimHandler.CallAttack();
         }
     }
@@ -106,6 +110,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     public void OnAttackEnd()
     {
+        CaneCollider.SetActive(false);
         isAttacking = false;
         playerAnimHandler.EndAttack();
     }
