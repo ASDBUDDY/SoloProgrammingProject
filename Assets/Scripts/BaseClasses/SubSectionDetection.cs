@@ -10,7 +10,7 @@ public class SubSectionDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(GameConstantsClass.PLAYER_TAG))
         {
             playerPresent = true;  
             
@@ -20,7 +20,7 @@ public class SubSectionDetection : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(GameConstantsClass.PLAYER_TAG))
         {
             playerPresent = false;
 
