@@ -1,3 +1,5 @@
+using BaseClasses;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +15,7 @@ public class ProjectileBaseClass : MonoBehaviour
     private Vector3 currentVelocity;
     private float activeTimer = 10f;
     private float timerCheck = 0f;
+    public ProjectileUser projectileUser;
 
     private void Awake()
     {
@@ -46,7 +49,30 @@ public class ProjectileBaseClass : MonoBehaviour
     public void SetupDamage(float _damage) => damageStat = _damage;
   private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == GameConstantsClass.PLAYER_LAYER )
+        switch (projectileUser)
+        {
+            case ProjectileUser.Player: CallEnemyHit(other); break;
+            case ProjectileUser.Enemy: CallPlayerHit(other); break;
+            default: break;
+        }
+       
+    }
+    private void CallEnemyHit(Collider other)
+    {
+        if (other.gameObject.layer == GameConstantsClass.ENEMY_LAYER)
+        {
+            EnemyBaseClass newEnemy = other.gameObject.transform.parent.transform.GetComponent<EnemyBaseClass>();
+            if (newEnemy != null)
+            {
+                newEnemy.enemyHealthComponent.DamageHealth(damageStat);
+            }
+
+            CallDestroy();
+        }
+    }
+    private void CallPlayerHit(Collider other)
+    {
+        if (other.gameObject.layer == GameConstantsClass.PLAYER_LAYER)
         {
             if (other.gameObject.CompareTag(GameConstantsClass.PLAYER_TAG))
             {
@@ -60,7 +86,6 @@ public class ProjectileBaseClass : MonoBehaviour
             }
         }
     }
-
     public void CallDestroy()
     {
         Destroy(gameObject);
@@ -93,4 +118,11 @@ public class ProjectileBaseClass : MonoBehaviour
             Destroy(gameObject);
         }
     }*/
+
+    [Serializable]
+    public enum ProjectileUser
+    {
+        Player=0,
+        Enemy=1
+    }
 }

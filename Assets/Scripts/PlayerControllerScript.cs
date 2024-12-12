@@ -10,7 +10,10 @@ public class PlayerControllerScript : MonoBehaviour
     public CharacterController characterController;
     public GameObject CaneCollider;
     public HealthComponent healthComponent;
+    public GameObject PlayerProjectile;
+    public GameObject FiringPos;
     public float MeleeDamage = 5f;
+    public float RangedDamage = 4f;
 
     Vector2 currentMovementInput;
     Vector3 currentMovement;
@@ -23,6 +26,10 @@ public class PlayerControllerScript : MonoBehaviour
 
     public float MovementSpeed = 4f;
     public float RunSpeed = 8f;
+    private float projectileSpeed = 600f;
+    private float projectileRate = 2f;
+    private float projectileTimer = 0f;
+    private bool projectileOnCooldown = false;
 
     float rotationFactorPerFrame = 8f;
     private void Awake()
@@ -40,7 +47,7 @@ public class PlayerControllerScript : MonoBehaviour
         playerInput.CharacterControls.Block.started += OnBlock;
         playerInput.CharacterControls.Block.canceled += OnBlock;
         playerInput.CharacterControls.MeleeAttack.started += OnMeleeAttack;
-       
+        playerInput.CharacterControls.RangedAttack.started += OnRangedAttack;
 
 
 
@@ -115,6 +122,23 @@ public class PlayerControllerScript : MonoBehaviour
         playerAnimHandler.EndAttack();
     }
    
+    public void OnRangedAttack(InputAction.CallbackContext context)
+    {
+        if (!projectileOnCooldown)
+        {
+            ProjectileFunction();
+            projectileOnCooldown = true;
+        }
+    }
+    public void ProjectileFunction()
+    {
+        Vector3 spawnPos = FiringPos.transform.position;
+        GameObject bullet = Instantiate(PlayerProjectile, spawnPos, this.transform.rotation);
+        var projectile = bullet.GetComponent<ProjectileBaseClass>();
+        projectile.SetupDamage(RangedDamage);
+        var rb = bullet.GetComponent<Rigidbody>();
+        if (rb != null) { rb.AddForce(transform.forward * projectileSpeed); }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -131,6 +155,18 @@ public class PlayerControllerScript : MonoBehaviour
             HandleRotation();
         
             playerAnimHandler.UpdateVelocity(currentMovement,isMoving, isMoving ? isRunning : false);
+            
+
+        }
+        if (projectileOnCooldown)
+        {
+            if (projectileTimer > projectileRate)
+            {
+                projectileOnCooldown = false;
+                projectileTimer = 0;
+            }
+            else
+                projectileTimer += Time.deltaTime;
         }
     }
 }
