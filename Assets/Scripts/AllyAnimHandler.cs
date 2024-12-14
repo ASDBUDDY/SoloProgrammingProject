@@ -19,6 +19,7 @@ public class AllyAnimHandler : MonoBehaviour
     public void SetAttacking(bool flag) => animator.SetBool(isAttacking, flag);
     public void SetHealing(bool flag) => animator.SetBool(isHealing, flag);
 
-
+    public bool GetAttacking() => animator.GetBool(isAttacking);
+    public bool GetHealing() => animator.GetBool(isHealing);
 
 }

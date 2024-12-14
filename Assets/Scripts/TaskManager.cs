@@ -6,13 +6,21 @@ using UnityEngine;
 
 public class TaskManager : MonoBehaviour
 {
+    public static TaskManager Instance { get; private set; }
     public List<AllyTask> AllyTaskList;
 
     public bool SortIt = false;
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+    private void Start()
+    {
+        AllyTaskList = new List<AllyTask>();
     }
 
     public void AddTask(AllyTask task)
@@ -20,10 +28,26 @@ public class TaskManager : MonoBehaviour
         AllyTaskList.Insert(0, task);
         SortTaskList();
     }
+    public AllyTask GetTask()
+    {
+        if(AllyTaskList.Count == 0)
+            return null;
 
+        AllyTask task = AllyTaskList[0];
+        if (task != null)
+        {
+            AllyTaskList.Remove(task);
+
+        }
+        return task;
+    }
     private void SortTaskList()
     {
         AllyTaskList = AllyTaskList.OrderByDescending(task=>task.priority).ToList();
+        if(AllyTaskList.Count > 10)
+        {
+            AllyTaskList.RemoveAt(10);
+        }
     }
 
     // Update is called once per frame
@@ -44,7 +68,7 @@ public class AllyTask
     public FriendlyAIDirective directive;
     public bool isOver { get; private set; }
 
-    AllyTask(TaskPriority priority, FriendlyAIDirective directive)
+   public AllyTask(TaskPriority priority, FriendlyAIDirective directive)
     {
         this.priority = priority;
         this.directive = directive;

@@ -70,5 +70,7 @@ public abstract class FriendlyAIActivityState : State<FriendlyAIDirective>
 
     protected void CallDefaultMovement() => FriendlyBaseClass.HoverPlayer();
 
+    protected void CheckForAttack() => FriendlyBaseClass.CheckForTarget();
+
 
 }
