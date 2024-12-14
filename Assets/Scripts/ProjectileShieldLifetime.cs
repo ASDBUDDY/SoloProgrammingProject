@@ -10,8 +10,11 @@ public class ProjectileShieldLifetime : MonoBehaviour
   
     void Update()
     {
-        if(LifetimeTimer > LifetimePeriod)
+        if (LifetimeTimer > LifetimePeriod)
+        {
+            TaskManager.Instance.ExistingProjectileShield = false;
             Destroy(this.gameObject);
+        }
 
         LifetimeTimer += Time.deltaTime;
     }

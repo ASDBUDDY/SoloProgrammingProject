@@ -23,7 +23,7 @@ public class EnemyDetector : MonoBehaviour
     public IntensityCriteria MediumRingIntensity;
     public IntensityCriteria HighRingIntensity;
 
-
+    public int RangedEnemyPresent = 0;
     private void Awake()
     {
         if(Instance == null)

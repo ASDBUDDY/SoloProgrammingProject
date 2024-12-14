@@ -183,6 +183,8 @@ namespace BaseClasses
             enemyHealthComponent = new HealthComponent(EnemyStats.maxHealth);
             selfAgent.speed = EnemyStats.enemySpeed;
             AttackRadius?.SetupDamage(EnemyStats.enemyAttackPower);
+            if(enemyTypes == EnemyTypes.Ranged)
+                EnemyDetector.Instance.RangedEnemyPresent++;
         }
 
         /// <summary>
@@ -299,6 +301,8 @@ namespace BaseClasses
             LifetimeSM.gameObject.transform.localScale = EnemyScale;
             enemyHealthComponent = new HealthComponent(EnemyStats.maxHealth);
             EnemyDetector.Instance.RemoveEnemyOnDeath(LifetimeSM.gameObject);
+            if (enemyTypes == EnemyTypes.Ranged)
+                EnemyDetector.Instance.RangedEnemyPresent--;
             this.gameObject.SetActive(false);
             
             

@@ -17,19 +17,19 @@ MonoBehaviour:
     EnemyWaveList:
     - enemyTypes: 0
       SpawnQuantity: 5
-      SpawnTimer: 2
+      SpawnTimer: 1
       EnemyCount: 0
       CurrentSpawnTimer: 0
   - WaveID: 1
     EnemyWaveList:
     - enemyTypes: 0
       SpawnQuantity: 10
-      SpawnTimer: 2
+      SpawnTimer: 1
       EnemyCount: 0
       CurrentSpawnTimer: 0
     - enemyTypes: 1
-      SpawnQuantity: 5
-      SpawnTimer: 2
+      SpawnQuantity: 15
+      SpawnTimer: 1
       EnemyCount: 0
       CurrentSpawnTimer: 0
   - WaveID: 2
@@ -41,11 +41,11 @@ MonoBehaviour:
       CurrentSpawnTimer: 0
     - enemyTypes: 2
       SpawnQuantity: 20
-      SpawnTimer: 2
+      SpawnTimer: 1
       EnemyCount: 0
       CurrentSpawnTimer: 0
     - enemyTypes: 1
       SpawnQuantity: 10
-      SpawnTimer: 2
+      SpawnTimer: 1
       EnemyCount: 0
       CurrentSpawnTimer: 0

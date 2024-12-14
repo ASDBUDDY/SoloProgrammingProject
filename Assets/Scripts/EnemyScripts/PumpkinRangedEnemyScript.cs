@@ -18,6 +18,7 @@ public class PumpkinRangedEnemyScript : EnemyBaseClass
     new void Start()
     {
         base.Start();
+        
     }
 
     // Update is called once per frame
@@ -38,4 +39,5 @@ public class PumpkinRangedEnemyScript : EnemyBaseClass
         if (rb != null) { rb.AddForce(transform.forward * 125f); }
 
     }
+
 }

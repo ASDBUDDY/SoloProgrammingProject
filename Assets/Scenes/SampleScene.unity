@@ -258,7 +258,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AllyTaskList: []
-  SortIt: 0
+  FriendlyController: {fileID: 962686125}
+  ExistingProjectileShield: 0
 --- !u!4 &22362647
 Transform:
   m_ObjectHideFlags: 0
@@ -5378,7 +5379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerObj: {fileID: 1321841803}
   WaveNumber: 0
-  ResetWaveTime: 5
+  ResetWaveTime: 2
   CurrentWaveData:
     WaveID: 0
     EnemyWaveList: []
@@ -10466,6 +10467,10 @@ MonoBehaviour:
   RingMediumDistance: 20
   RingHighDistance: 10
   TimeBetweenChecks: 1
+  DefaultRingIntensity: 0
+  MediumRingIntensity: 0
+  HighRingIntensity: 0
+  RangedEnemyPresent: 0
 --- !u!65 &1107954535
 BoxCollider:
   m_ObjectHideFlags: 0

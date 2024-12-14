@@ -9,7 +9,9 @@ public class TaskManager : MonoBehaviour
     public static TaskManager Instance { get; private set; }
     public List<AllyTask> AllyTaskList;
 
-    public bool SortIt = false;
+    public FriendlyControllerScript FriendlyController;
+   
+    public bool ExistingProjectileShield = false;
 
     private void Awake()
     {
@@ -24,7 +26,11 @@ public class TaskManager : MonoBehaviour
     }
 
     public void AddTask(AllyTask task)
-    {   foreach (AllyTask item in AllyTaskList)
+    {
+        if (FriendlyController.activityStateMachine.CurrentStateType == task.directive)
+            return;
+        
+        foreach (AllyTask item in AllyTaskList)
         {
             if (item.directive == task.directive)
             {
@@ -63,15 +69,7 @@ public class TaskManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (SortIt)
-        {
-            SortTaskList();
-            SortIt = false;
-        }
-    }
+   
 }
 
 [Serializable]

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -191,14 +192,19 @@ public class FriendlyControllerScript : MonoBehaviour
     #region Projectile Shielding State
     public void StartProjectileShielding()
     {
+        
+            
 
         if (!agent.enabled) { agent.enabled = true; }
         HoverPlayer();
 
-        if (Vector3.Distance(this.transform.position, playerController.transform.position) < agent.stoppingDistance && !IsProjShielding)
-        {
-            CallProjectileShielding();
-        }
+        if (TaskManager.Instance.ExistingProjectileShield)
+            return;
+
+            if (Vector3.Distance(this.transform.position, playerController.transform.position) < agent.stoppingDistance && !IsProjShielding)
+            {
+                CallProjectileShielding();
+            }
 
     }
 
@@ -207,6 +213,7 @@ public class FriendlyControllerScript : MonoBehaviour
         IsProjShielding = true;
         animHandler.SetHealing(IsProjShielding);
         ShieldPresetObj.SetActive(true);
+        TaskManager.Instance.ExistingProjectileShield = true;
 
     }
 
@@ -215,6 +222,7 @@ public class FriendlyControllerScript : MonoBehaviour
         IsProjShielding = false;
         animHandler.SetHealing(IsProjShielding);
         Instantiate(ProjectilShieldPrefab, transform.position, transform.rotation);
+        
         ShieldPresetObj.SetActive(false);
         CurrentTask.TaskOver();
     }

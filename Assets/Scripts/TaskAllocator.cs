@@ -7,7 +7,7 @@ public class TaskAllocator : MonoBehaviour
     public PlayerControllerScript PlayerController;
     public FriendlyControllerScript FriendlyController;
 
-    private float RecheckRate = 1f;
+    private float RecheckRate = 0.8f;
 
     private float RecheckTimer = 0f;
 
@@ -20,10 +20,34 @@ public class TaskAllocator : MonoBehaviour
             RecheckTimer = 0f;
             CheckForPlayerHealth();
             CheckForPlayerArmour();
+            CheckForProjectileShield();
             CheckForAttackingTarget();
         }
         else
             RecheckTimer += Time.deltaTime;
+    }
+
+    private void CheckForProjectileShield()
+    {
+
+        if (TaskManager.Instance.ExistingProjectileShield)
+            return;
+
+        int rangedEnemy = EnemyDetector.Instance.RangedEnemyPresent;
+        AllyTask allyTask = new AllyTask(TaskPriority.Default, FriendlyAIDirective.ProjectileShield);
+
+        if (rangedEnemy > 10)
+        {
+            allyTask.ResetPriority(TaskPriority.High);
+        }
+        else if (rangedEnemy > 6)
+        {
+            allyTask.ResetPriority(TaskPriority.Medium);
+        }
+        else if (rangedEnemy <= 3)
+            return;
+
+        TaskManager.Instance.AddTask(allyTask);
     }
     private void CheckForAttackingTarget()
     {
