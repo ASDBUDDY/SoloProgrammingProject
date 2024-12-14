@@ -298,6 +298,7 @@ namespace BaseClasses
             LifetimeSM.SetState(LifetimeStates.Inactive);
             LifetimeSM.gameObject.transform.localScale = EnemyScale;
             enemyHealthComponent = new HealthComponent(EnemyStats.maxHealth);
+            EnemyDetector.Instance.RemoveEnemyOnDeath(LifetimeSM.gameObject);
             this.gameObject.SetActive(false);
             
             

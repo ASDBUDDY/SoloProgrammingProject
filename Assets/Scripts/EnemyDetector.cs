@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class EnemyDetector : MonoBehaviour
 {
+    public static EnemyDetector Instance;
+
     public List<GameObject> EnemyCountRingDefault;
     public List<GameObject> EnemyCountRingMedium;
     public List<GameObject> EnemyCountRingHigh;
@@ -16,6 +18,13 @@ public class EnemyDetector : MonoBehaviour
     public float TimeBetweenChecks = 1f;
     private float checkTimer = 0f;
 
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+    }
     private void Start()
     {
         EnemyCountRingDefault = new List<GameObject>();
@@ -23,6 +32,24 @@ public class EnemyDetector : MonoBehaviour
         EnemyCountRingHigh = new List<GameObject>();
     }
 
+    public void RemoveEnemyOnDeath(GameObject obj)
+    {
+        if (EnemyCountRingDefault.Contains(obj))
+        {
+            EnemyCountRingDefault.Remove(obj);
+            return;
+        }
+        if(EnemyCountRingMedium.Contains(obj))
+        {
+            EnemyCountRingMedium.Remove(obj);
+            return;
+        }
+        if (EnemyCountRingHigh.Contains(obj))
+        {
+            EnemyCountRingHigh.Remove(obj);
+            return;
+        }
+    }
     private void CheckForEnemies()
     {
         if(EnemyCountRingDefault.Count > 0)
@@ -75,20 +102,26 @@ public class EnemyDetector : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log($"I AM HIT by {other.gameObject.name}");
-        if ((EnemyCountRingDefault.Contains(other.gameObject)))
-            return;
+        if (other.gameObject.layer == GameConstantsClass.ENEMY_LAYER )
+        {
+            //Debug.Log($"I AM HIT by {other.gameObject.name}");
+            if ((EnemyCountRingDefault.Contains(other.gameObject)))
+                return;
 
-        EnemyCountRingDefault.Add(other.gameObject);
+            EnemyCountRingDefault.Add(other.gameObject);
+        }
     }
     private void OnTriggerExit(Collider other)  
     {
-        if (EnemyCountRingDefault.Remove(other.gameObject))
-            return;
-        if (EnemyCountRingMedium.Remove(other.gameObject))
-            return;
+        if (other.gameObject.layer == GameConstantsClass.ENEMY_LAYER)
+        {
+            if (EnemyCountRingDefault.Remove(other.gameObject))
+                return;
+            if (EnemyCountRingMedium.Remove(other.gameObject))
+                return;
 
-        EnemyCountRingHigh.Remove(other.gameObject);
+            EnemyCountRingHigh.Remove(other.gameObject);
+        }
     }
   
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TaskManager : MonoBehaviour
 {
-    public List<EnemyTask> EnemyTaskList;
+    public List<AllyTask> AllyTaskList;
 
     public bool SortIt = false;
     // Start is called before the first frame update
@@ -15,15 +15,15 @@ public class TaskManager : MonoBehaviour
         
     }
 
-    public void AddTask(EnemyTask task)
+    public void AddTask(AllyTask task)
     {
-        EnemyTaskList.Insert(0, task);
+        AllyTaskList.Insert(0, task);
         SortTaskList();
     }
 
     private void SortTaskList()
     {
-        EnemyTaskList = EnemyTaskList.OrderByDescending(task=>task.priority).ToList();
+        AllyTaskList = AllyTaskList.OrderByDescending(task=>task.priority).ToList();
     }
 
     // Update is called once per frame
@@ -38,21 +38,25 @@ public class TaskManager : MonoBehaviour
 }
 
 [Serializable]
-public class EnemyTask
+public class AllyTask
 {
     public TaskPriority priority;
-    public EnemyDirective directive;
+    public FriendlyAIDirective directive;
+    public bool isOver { get; private set; }
 
-    EnemyTask(TaskPriority priority, EnemyDirective directive)
+    AllyTask(TaskPriority priority, FriendlyAIDirective directive)
     {
         this.priority = priority;
         this.directive = directive;
     }
+
+    public void TaskOver() => isOver = true;
 }
 
 [Serializable]
-public enum EnemyDirective
+public enum FriendlyAIDirective
 {
+    Default= -1,
     AttackMelee=0,
     AttackRanged=1,
     Healing=2,

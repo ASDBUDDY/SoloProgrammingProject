@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HealthComponent
@@ -15,12 +16,24 @@ public class HealthComponent
     public float CurrentHealth { get; private set; }
 
     /// <summary>
+    /// Maximum Armour of Character
+    /// </summary>
+    public float MaxArmour { get; private set; }
+
+    /// <summary>
+    /// Current Armour of Character
+    /// </summary>
+    public float CurrentArmour { get; private set; }
+
+    /// <summary>
     /// Constructor for Health Component Setup
     /// </summary>
     /// <param name="maxHealth"></param>
     public HealthComponent(float maxHealth) {
         MaxHealth = maxHealth;
         CurrentHealth = MaxHealth;
+        MaxArmour = 0;
+        CurrentArmour = 0;
     }
 
     /// <summary>
@@ -31,6 +44,22 @@ public class HealthComponent
     {
         if (CurrentHealth > 0)
         {
+            if (CurrentArmour > 0) { 
+                
+                CurrentArmour -= damage;
+
+                if (CurrentArmour < 0)
+                {
+
+                    damage = Mathf.Abs(CurrentArmour);
+                    CurrentArmour = 0;
+
+
+                }
+                else
+                    return;
+            }
+
 
             CurrentHealth -= damage;
 
@@ -52,6 +81,16 @@ public class HealthComponent
             if (CurrentHealth > MaxHealth)
                 CurrentHealth = MaxHealth;
         }
+    }
+
+    /// <summary>
+    /// Function to Give Armour to Player
+    /// </summary>
+    /// <param name="armour"></param>
+    public void GiveArmour(float armour)
+    {
+        MaxArmour = armour;
+        CurrentArmour = armour;
     }
 
 }
