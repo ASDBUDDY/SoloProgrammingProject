@@ -14,19 +14,27 @@ public class FriendlyControllerScript : MonoBehaviour
     public GameObject TargetEnemy;
 
     public FriendlyAIActivityStateMachine activityStateMachine;
-
-    public float MeleeDamage = 2f;
-
     public GameObject MeleeObj;
+    public GameObject HealingObj;
+    public GameObject ShieldObj;
 
     public AllyTask CurrentTask;
 
+    #region StatsVariable
+    [HideInInspector]
+    public float MeleeDamage = 2f;
 
-    private float AttackRate = 3f;
+    private float HealAmount = 5f;
+
+    private float AttackRate = 5f;
 
     private float AttackTimer = 0f;
 
+    private float ArmourAmount = 15f;
+    #endregion
     private bool CanAttack = true;
+    private bool IsHealing = false;
+    private bool IsShielding = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,11 +46,12 @@ public class FriendlyControllerScript : MonoBehaviour
     void Update()
     {
 
-        activityStateMachine?.CallStateUpdate();
         GetNewTask();
+        activityStateMachine?.CallStateUpdate();
         TimerFunction();
     }
 
+    #region Default State
     public void HoverPlayer()
     {
         if (!agent.enabled)
@@ -55,6 +64,9 @@ public class FriendlyControllerScript : MonoBehaviour
         agent.stoppingDistance = 5f;
         animHandler.SetMoving(agent.velocity.magnitude > 0f);
     }
+    #endregion
+
+    #region AttackMelee State
     public void CheckForTarget()
     {
         if (animHandler.GetAttacking())
@@ -95,6 +107,7 @@ public class FriendlyControllerScript : MonoBehaviour
        animHandler?.SetAttacking(true);
         MeleeObj.SetActive(true);
         CanAttack = false;
+        CurrentTask.TaskOver();
 
     }
 
@@ -103,7 +116,74 @@ public class FriendlyControllerScript : MonoBehaviour
         animHandler?.SetAttacking(false);
         CurrentTask.TaskOver();
     }
+    #endregion
 
+    #region Healing State
+
+    public void StartHealing()
+    {
+     
+        if (!agent.enabled) { agent.enabled = true; }
+        HoverPlayer();
+
+        if (Vector3.Distance(this.transform.position, playerController.transform.position) < agent.stoppingDistance && !IsHealing)
+        {
+            CallHealing();
+        }
+
+    }
+
+    public void CallHealing()
+    {
+        IsHealing = true;
+        animHandler.SetHealing(IsHealing);
+        HealingObj.SetActive(true);
+
+    }
+
+    public void HealingOver()
+    {
+        IsHealing = false;
+        animHandler.SetHealing(IsHealing);
+        HealingObj.SetActive(false);
+        playerController.healthComponent.IncreaseHealth(HealAmount);
+        CurrentTask.TaskOver();
+    }
+
+    #endregion
+
+    #region Shielding State
+    public void StartSheilding()
+    {
+
+        if (!agent.enabled) { agent.enabled = true; }
+        HoverPlayer();
+
+        if (Vector3.Distance(this.transform.position, playerController.transform.position) < agent.stoppingDistance && !IsShielding)
+        {
+            CallShielding();
+        }
+
+    }
+
+    public void CallShielding()
+    {
+        IsShielding = true;
+        animHandler.SetHealing(IsShielding);
+        ShieldObj.SetActive(true);
+
+    }
+
+    public void ShieldingOver()
+    {
+        IsShielding = false;
+        animHandler.SetHealing(IsShielding);
+        ShieldObj.SetActive(false);
+        playerController.healthComponent.GiveArmour(ArmourAmount);
+        CurrentTask.TaskOver();
+    }
+
+    #endregion
     public void GetNewTask()
     {
         if (CurrentTask == null || CurrentTask.isOver)

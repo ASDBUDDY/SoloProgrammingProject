@@ -26,7 +26,7 @@ public class FriendlyAIActivityHealingState : FriendlyAIActivityState
     {
         
         base.Update();
-       
+        ManageHealing();
 
 
     }

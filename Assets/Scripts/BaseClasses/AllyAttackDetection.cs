@@ -21,7 +21,7 @@ public class AllyAttackDetection : MonoBehaviour
 
     public void AnimOver() { 
         
-        AllyController.AttackOver();
         this.gameObject.SetActive(false); 
+        AllyController.AttackOver();
     }
 }

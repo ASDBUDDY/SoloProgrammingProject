@@ -26,8 +26,8 @@ public class FriendlyAIActivityShieldState : FriendlyAIActivityState
     {
         
         base.Update();
-       
 
+        ManageShielding();
 
     }
 
