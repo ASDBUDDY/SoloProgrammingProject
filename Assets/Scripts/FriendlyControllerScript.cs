@@ -17,6 +17,9 @@ public class FriendlyControllerScript : MonoBehaviour
     public GameObject MeleeObj;
     public GameObject HealingObj;
     public GameObject ShieldObj;
+    public GameObject ShieldPresetObj;
+
+    public GameObject ProjectilShieldPrefab;
 
     public AllyTask CurrentTask;
 
@@ -35,6 +38,7 @@ public class FriendlyControllerScript : MonoBehaviour
     private bool CanAttack = true;
     private bool IsHealing = false;
     private bool IsShielding = false;
+    private bool IsProjShielding = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -153,7 +157,7 @@ public class FriendlyControllerScript : MonoBehaviour
     #endregion
 
     #region Shielding State
-    public void StartSheilding()
+    public void StartShielding()
     {
 
         if (!agent.enabled) { agent.enabled = true; }
@@ -180,6 +184,38 @@ public class FriendlyControllerScript : MonoBehaviour
         animHandler.SetHealing(IsShielding);
         ShieldObj.SetActive(false);
         playerController.healthComponent.GiveArmour(ArmourAmount);
+        CurrentTask.TaskOver();
+    }
+
+    #endregion
+    #region Projectile Shielding State
+    public void StartProjectileShielding()
+    {
+
+        if (!agent.enabled) { agent.enabled = true; }
+        HoverPlayer();
+
+        if (Vector3.Distance(this.transform.position, playerController.transform.position) < agent.stoppingDistance && !IsProjShielding)
+        {
+            CallProjectileShielding();
+        }
+
+    }
+
+    public void CallProjectileShielding()
+    {
+        IsProjShielding = true;
+        animHandler.SetHealing(IsProjShielding);
+        ShieldPresetObj.SetActive(true);
+
+    }
+
+    public void ProjectileShieldingOver()
+    {
+        IsProjShielding = false;
+        animHandler.SetHealing(IsProjShielding);
+        Instantiate(ProjectilShieldPrefab, transform.position, transform.rotation);
+        ShieldPresetObj.SetActive(false);
         CurrentTask.TaskOver();
     }
 

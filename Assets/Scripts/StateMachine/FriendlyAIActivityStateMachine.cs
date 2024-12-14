@@ -74,6 +74,7 @@ public abstract class FriendlyAIActivityState : State<FriendlyAIDirective>
 
     protected void ManageHealing() => FriendlyBaseClass.StartHealing();
 
-    protected void ManageShielding() => FriendlyBaseClass.StartSheilding();
+    protected void ManageShielding() => FriendlyBaseClass.StartShielding();
 
+    protected void CastProjectileShield() => FriendlyBaseClass.StartProjectileShielding();
 }

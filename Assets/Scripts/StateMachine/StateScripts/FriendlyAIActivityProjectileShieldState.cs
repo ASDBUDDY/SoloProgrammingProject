@@ -26,8 +26,8 @@ public class FriendlyAIActivityProjectileShieldState : FriendlyAIActivityState
     {
         
         base.Update();
-       
 
+        CastProjectileShield();
 
     }
 

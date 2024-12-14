@@ -10,4 +10,6 @@ public class EffectObjAnimScript : MonoBehaviour
     public void CookieAnimOver() => FriendlyController.HealingOver();
 
     public void PuddingAnimOver() => FriendlyController.ShieldingOver();
+
+    public void PresentShieldOver() => FriendlyController.ProjectileShieldingOver();
 }
