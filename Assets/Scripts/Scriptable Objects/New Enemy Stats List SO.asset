@@ -17,7 +17,7 @@ MonoBehaviour:
     enemyType: 0
     enemySpeed: 10
     maxHealth: 5
-    enemyAttackPower: 2
+    enemyAttackPower: 5
     enemyAttackRate: 2
     minAttackRange: 0
     maxAttackRange: 3
@@ -25,7 +25,7 @@ MonoBehaviour:
     enemyType: 2
     enemySpeed: 5
     maxHealth: 10
-    enemyAttackPower: 5
+    enemyAttackPower: 10
     enemyAttackRate: 5
     minAttackRange: 0
     maxAttackRange: 3
@@ -33,7 +33,7 @@ MonoBehaviour:
     enemyType: 1
     enemySpeed: 8
     maxHealth: 5
-    enemyAttackPower: 6
+    enemyAttackPower: 8
     enemyAttackRate: 5
     minAttackRange: 0
     maxAttackRange: 20

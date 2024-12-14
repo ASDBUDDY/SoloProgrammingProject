@@ -12,8 +12,11 @@ public class HitDetectionClass : MonoBehaviour
       private void OnTriggerEnter(Collider other){
         if (other.gameObject.CompareTag(GameConstantsClass.PLAYER_TAG))
         {
-            Debug.Log($"I hit player! {damageStat}");
-            //playerDamageEvent.RaiseEvent(damageStat);
+           PlayerControllerScript player = other.gameObject.GetComponentInChildren<PlayerControllerScript>();
+            if (player != null)
+            {
+                player.DamagePlayer(damageStat);
+            }
             
         }
       }

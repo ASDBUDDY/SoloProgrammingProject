@@ -37,7 +37,7 @@ public class PlayerControllerScript : MonoBehaviour
         playerInput = new PlayerActions();
         playerAnimHandler= GetComponent<PlayerAnimHandler>();
         characterController = this.transform.parent.GetComponent<CharacterController>();
-        healthComponent = new HealthComponent(100f);
+        healthComponent = new HealthComponent(40f);
         playerInput.CharacterControls.Move.started += OnMovementInput;
         playerInput.CharacterControls.Move.performed += OnMovementInput;
         playerInput.CharacterControls.Move.canceled += OnMovementInput;
@@ -65,7 +65,22 @@ public class PlayerControllerScript : MonoBehaviour
         playerInput.CharacterControls.Disable();
     }
 
+    public void DamagePlayer(float damage, bool isProjectile = false)
+    {
+        if (isBlocking)
+        {
+            if (!isProjectile)
+            {
 
+                healthComponent.DamageHealth(damage / 2);
+
+            }
+
+
+        }
+        else
+            healthComponent.DamageHealth(damage);
+    }
     void HandleRotation()
     {
         Vector3 positionToLookAt;

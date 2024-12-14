@@ -76,14 +76,15 @@ public class ProjectileBaseClass : MonoBehaviour
         {
             if (other.gameObject.CompareTag(GameConstantsClass.PLAYER_TAG))
             {
-                Debug.Log($"I hit player! {damageStat}");
-                //playerDamageEvent.RaiseEvent(damageStat);
-                CallDestroy();
+                PlayerControllerScript player = other.gameObject.GetComponentInChildren<PlayerControllerScript>();
+                if (player != null)
+                {
+                    player.DamagePlayer(damageStat,true);
+                }
+
             }
-            else
-            {
-                CallDestroy();
-            }
+
+            CallDestroy();
         }
     }
     public void CallDestroy()

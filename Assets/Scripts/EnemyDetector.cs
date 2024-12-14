@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,11 @@ public class EnemyDetector : MonoBehaviour
 
     public float TimeBetweenChecks = 1f;
     private float checkTimer = 0f;
+
+    public IntensityCriteria DefaultRingIntensity;
+    public IntensityCriteria MediumRingIntensity;
+    public IntensityCriteria HighRingIntensity;
+
 
     private void Awake()
     {
@@ -86,12 +92,32 @@ public class EnemyDetector : MonoBehaviour
         }
 
     }
+
+    private IntensityCriteria SetIntensityValues(int intensity)
+    {
+       
+
+        if (intensity > 20)
+            return IntensityCriteria.High;
+        else if (intensity > 10)
+            return IntensityCriteria.Medium;
+        else if (intensity > 5)
+            return IntensityCriteria.Low;
+        else
+            return IntensityCriteria.Default;
+
+
+
+    }
     private void LateUpdate()
     {
         if (checkTimer > TimeBetweenChecks)
         {
             CheckForEnemies();
             checkTimer = 0f;
+            DefaultRingIntensity = SetIntensityValues(EnemyCountRingDefault.Count);
+            MediumRingIntensity = SetIntensityValues(EnemyCountRingMedium.Count);
+            HighRingIntensity = SetIntensityValues(EnemyCountRingHigh.Count);
         }
         else
         {
@@ -124,4 +150,13 @@ public class EnemyDetector : MonoBehaviour
         }
     }
   
+}
+[Serializable]
+
+public enum IntensityCriteria
+{
+    Default,
+    Low,
+    Medium,
+    High,
 }

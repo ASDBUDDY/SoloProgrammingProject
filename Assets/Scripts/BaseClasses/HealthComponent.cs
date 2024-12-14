@@ -32,7 +32,7 @@ public class HealthComponent
     public HealthComponent(float maxHealth) {
         MaxHealth = maxHealth;
         CurrentHealth = MaxHealth;
-        MaxArmour = 0;
+        MaxArmour = 25f;
         CurrentArmour = 0;
     }
 

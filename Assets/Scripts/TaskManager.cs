@@ -24,7 +24,20 @@ public class TaskManager : MonoBehaviour
     }
 
     public void AddTask(AllyTask task)
-    {
+    {   foreach (AllyTask item in AllyTaskList)
+        {
+            if (item.directive == task.directive)
+            {
+                if (item.priority < task.priority)
+                {
+                    item.ResetPriority(task.priority);
+                    SortTaskList();
+                    return;
+                }
+                SortTaskList();
+                return;
+            }
+        }
         AllyTaskList.Insert(0, task);
         SortTaskList();
     }
@@ -73,6 +86,8 @@ public class AllyTask
         this.priority = priority;
         this.directive = directive;
     }
+    
+   public void ResetPriority(TaskPriority priority) => this.priority = priority;
 
     public void TaskOver() => isOver = true;
 }
