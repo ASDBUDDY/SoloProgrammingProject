@@ -13,6 +13,9 @@ public class TaskManager : MonoBehaviour
    
     public bool ExistingProjectileShield = false;
 
+    public int MeleePreference = 0;
+    public int RangedPreference = 0;
+
     private void Awake()
     {
         if (Instance == null)

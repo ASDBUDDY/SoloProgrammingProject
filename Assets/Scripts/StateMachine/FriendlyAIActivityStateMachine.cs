@@ -77,4 +77,5 @@ public abstract class FriendlyAIActivityState : State<FriendlyAIDirective>
     protected void ManageShielding() => FriendlyBaseClass.StartShielding();
 
     protected void CastProjectileShield() => FriendlyBaseClass.StartProjectileShielding();
+    protected void CastProjectile() => FriendlyBaseClass.CheckForThrowTarget();
 }

@@ -27,7 +27,7 @@ public class PlayerControllerScript : MonoBehaviour
     public float MovementSpeed = 4f;
     public float RunSpeed = 8f;
     private float projectileSpeed = 600f;
-    private float projectileRate = 2f;
+    private float projectileRate = 0.5f;
     private float projectileTimer = 0f;
     private bool projectileOnCooldown = false;
 
@@ -111,6 +111,7 @@ public class PlayerControllerScript : MonoBehaviour
             isAttacking = context.ReadValueAsButton();
             CaneCollider.SetActive(true);
             playerAnimHandler.CallAttack();
+            TaskManager.Instance.MeleePreference++;
         }
     }
     public void OnRun(InputAction.CallbackContext context) { 
@@ -143,6 +144,7 @@ public class PlayerControllerScript : MonoBehaviour
         {
             ProjectileFunction();
             projectileOnCooldown = true;
+            TaskManager.Instance.RangedPreference++;
         }
     }
     public void ProjectileFunction()

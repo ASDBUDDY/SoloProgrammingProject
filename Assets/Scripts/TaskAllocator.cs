@@ -55,7 +55,7 @@ public class TaskAllocator : MonoBehaviour
         {
 
             GameObject target = EnemyDetector.Instance.EnemyCountRingHigh[0];
-            AllyTask allyTask = new AllyTask(TaskPriority.Default, FriendlyAIDirective.AttackMelee);
+            AllyTask allyTask = new AllyTask(TaskPriority.Default, CoinFlip() ? FriendlyAIDirective.AttackRanged: FriendlyAIDirective.AttackMelee);
             TaskManager.Instance.AddTask(allyTask);
             FriendlyController.TargetEnemy = target;
 
@@ -65,7 +65,7 @@ public class TaskAllocator : MonoBehaviour
         {
 
             GameObject target = EnemyDetector.Instance.EnemyCountRingMedium[0];
-            AllyTask allyTask = new AllyTask(TaskPriority.Default, FriendlyAIDirective.AttackMelee);
+            AllyTask allyTask = new AllyTask(TaskPriority.Default, CoinFlip() ? FriendlyAIDirective.AttackRanged : FriendlyAIDirective.AttackMelee);
             TaskManager.Instance.AddTask(allyTask);
             FriendlyController.TargetEnemy = target;
 
@@ -119,5 +119,20 @@ public class TaskAllocator : MonoBehaviour
 
         TaskManager.Instance.AddTask(allyTask);
         
+    }
+
+
+    private bool CoinFlip()
+    {
+        int random = Random.Range(1, 10);
+        int melee = TaskManager.Instance.MeleePreference;
+        int ranged = TaskManager.Instance.RangedPreference;
+        if(melee + ranged > 20)
+        {
+            return melee >= ranged;
+               
+        }
+
+        return random > 5;
     }
 }

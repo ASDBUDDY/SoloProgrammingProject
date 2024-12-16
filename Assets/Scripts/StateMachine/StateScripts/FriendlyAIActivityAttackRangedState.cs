@@ -26,7 +26,7 @@ public class FriendlyAIActivityAttackRangedState : FriendlyAIActivityState
     {
         
         base.Update();
-       
+        CastProjectile();
 
 
     }
