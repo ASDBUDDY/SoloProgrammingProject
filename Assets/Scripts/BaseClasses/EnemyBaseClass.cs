@@ -107,64 +107,9 @@ namespace BaseClasses
             CheckForEnemyHealth();
             
         }
-       /// <summary>
-       /// Handling Pause on Enemy Game Object
-       /// </summary>
-       /// <param name="pause"></param>
-       public void TogglePause(bool pause)
-        {
-            if (pause) {
-                selfAgent.enabled = false;
-                previousState = LifetimeSM.CurrentStateType;
-                LifetimeSM.SetState(LifetimeStates.Pause);
-            }
+       
 
-            else {
-                if (previousState != null)
-                    LifetimeSM.SetState(previousState);
-                else
-                    LifetimeSM.SetState(LifetimeStates.Inactive);
-
-                selfAgent.enabled = true;
-            }
-        }
-
-        /// <summary>
-        /// Turns off Mat Emission
-        /// </summary>
-        private void HitIndicationStop()
-        {
-            foreach (Renderer rend in BodyMats)
-            {
-                Material mat = rend.material;
-                mat.DisableKeyword("_EMISSION");
-                mat.globalIlluminationFlags = MaterialGlobalIlluminationFlags.EmissiveIsBlack;
-            }
-        }
-        /// <summary>
-        /// Turns on Mat Emission
-        /// </summary>
-        private void HitIndicationStart()
-        {
-            foreach (Renderer rend in BodyMats)
-            {
-                Material mat = rend.material;
-                mat.EnableKeyword("_EMISSION");
-                mat.globalIlluminationFlags = MaterialGlobalIlluminationFlags.BakedEmissive;
-            }
-        }
-
-        /// <summary>
-        /// Coroutine for Hit Visualisation
-        /// </summary>
-        /// <returns></returns>
-       private IEnumerator HitVisual()
-        {
-            HitIndicationStart();
-            yield return new WaitForSeconds(0.2f);
-            HitIndicationStop();
-        }
-
+      
         /// <summary>
         /// Initial Enemy setup
         /// </summary>
@@ -356,24 +301,7 @@ namespace BaseClasses
         }
 
         
-        /// <summary>
-        /// Clones and Returns a clone of the class
-        /// </summary>
-        /// <returns></returns>
-        public EnemyStatsClass Clone()
-        {
-            EnemyStatsClass stats = new EnemyStatsClass();
-            stats.enemyName = this.enemyName;
-            stats.enemyType = this.enemyType;
-            stats.maxHealth = this.maxHealth;
-            stats.enemySpeed = this.enemySpeed;
-            stats.enemyAttackPower = this.enemyAttackPower;
-            stats.enemyAttackRate = this.enemyAttackRate;
-            stats.minAttackRange = this.minAttackRange;
-            stats.maxAttackRange = this.maxAttackRange;
-
-            return stats;
-        }
+        
 
     }
 }
